@@ -4,7 +4,7 @@ pipeline {
     stages {
 		stage('Unit Tests') {
             steps{
-                sh 'mvn -f maths/pom.xml clean test'
+                sh 'mvn -f pom.xml clean test'
             }
         }
   //      
