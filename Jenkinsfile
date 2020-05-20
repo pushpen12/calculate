@@ -8,15 +8,14 @@ pipeline {
             }
         }
   //      
-#        stage("sonar_static_check"){
-#            steps{
-#		withSonarQubeEnv('MySonarQube') {
- #                   // Optionally use a Maven environment you've configured already
-  #                  sh 'mvn -f maths/pom.xml clean sonar:sonar -Dmaven.test.skip=true'
-   #             }
-    #        }
-#
- #       }
+        //stage("sonar_static_check"){
+          //  steps{
+	//	withSonarQubeEnv('MySonarQube') {
+                   // Optionally use a Maven environment you've configured already
+       //           sh 'mvn -f maths/pom.xml clean sonar:sonar -Dmaven.test.skip=true'
+     //        }
+   //     }
+ //       }
 	
 //	stage("Quality Gate") {
   //          steps {
