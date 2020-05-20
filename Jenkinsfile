@@ -1,9 +1,5 @@
 pipeline {
     agent any
-	tools { 
-        maven 'maven3.6' 
-        jdk 'jdk8' 
-    }
 	
     stages {
 		stage('Unit Tests') {
@@ -11,34 +7,34 @@ pipeline {
                 sh 'mvn -f maths/pom.xml clean test'
             }
         }
-        
-        stage("sonar_static_check"){
-            steps{
-		withSonarQubeEnv('MySonarQube') {
-                    // Optionally use a Maven environment you've configured already
-                    sh 'mvn -f maths/pom.xml clean sonar:sonar -Dmaven.test.skip=true'
-                }
-            }
-
-        }
+  //      
+#        stage("sonar_static_check"){
+#            steps{
+#		withSonarQubeEnv('MySonarQube') {
+ #                   // Optionally use a Maven environment you've configured already
+  #                  sh 'mvn -f maths/pom.xml clean sonar:sonar -Dmaven.test.skip=true'
+   #             }
+    #        }
+#
+ #       }
 	
-	stage("Quality Gate") {
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+//	stage("Quality Gate") {
+  //          steps {
+    //            timeout(time: 2, unit: 'MINUTES') {
+      //              // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+        //            // true = set pipeline to UNSTABLE, false = don't
+          //          waitForQualityGate abortPipeline: true
+            //    }
+            //}
+        //}
 
 		
         stage ('Artifactory configuration') {
             steps {
                 rtServer (
                     id: "ARTIFACTORY_SERVER",
-                    url: "http://artifactory:8081/artifactory",
-		    credentialsId: 'admin.jfrog'
+                    url: "http://192.168.0.101/artifactory",
+		    credentialsId: 'artifactory-id'
                 )
 
                 rtMavenDeployer (
